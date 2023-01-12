@@ -1,0 +1,58 @@
+@use 'src/styles/vars';
+
+.container {
+  height: 100vh;
+  overflow: auto;
+}
+
+.toggle-switch {
+  position: fixed;
+  right: 10%;
+  top: 2em;
+  width: 80px;
+
+  label {
+    position: absolute;
+    width: 100%;
+    height: 40px;
+    background-color: vars.$secondary-color;
+    border-radius: 50px;
+    cursor: pointer;
+  }
+
+  input {
+    position: absolute;
+    display: none;
+  }
+
+  .slider {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50px;
+    transition: 0.3s;
+  }
+
+  input:checked ~ .slider {
+    background-color: vars.$white-color;
+  }
+
+  .slider::before {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 8px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    box-shadow: inset 14px -4px 0 0 vars.$white-color;
+    background-color: vars.$secondary-color;
+    transition: 0.3s;
+  }
+
+  input:checked ~ .slider::before {
+    transform: translateX(35px);
+    background-color: vars.$secondary-color;
+    box-shadow: none;
+  }
+}

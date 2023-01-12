@@ -9,20 +9,21 @@ import App from 'src/components/App';
 import MessagesProvider from 'src/commons/MessagesProvider';
 
 import packageJSON from '../package.json';
+import { ThemeProvider } from 'src/commons/ThemeProvider';
 
 if (process.env.SENTRY_DSN) {
-    Sentry.init({
-        dsn: process.env.SENTRY_DSN,
-        environment: process.env.NODE_ENV,
-        release: packageJSON.version,
-        integrations: [new BrowserTracing()],
+  Sentry.init({
+    dsn: process.env.SENTRY_DSN,
+    environment: process.env.NODE_ENV,
+    release: packageJSON.version,
+    integrations: [new BrowserTracing()],
 
-        // Set tracesSampleRate to 1.0 to capture 100%
-        // of transactions for performance monitoring.
-        // We recommend adjusting this value in production
-        tracesSampleRate: 1.0,
-        normalizeDepth: 10, // Or however deep you want your state context to be.
-    });
+    // Set tracesSampleRate to 1.0 to capture 100%
+    // of transactions for performance monitoring.
+    // We recommend adjusting this value in production
+    tracesSampleRate: 1.0,
+    normalizeDepth: 10, // Or however deep you want your state context to be.
+  });
 }
 
 const container = document.querySelector('#root');
@@ -33,9 +34,11 @@ const Application = (
     <BrowserRouter basename="/">
       <MessagesProvider>
         <React.StrictMode>
-        <Suspense fallback={<h1>Chargement de la page</h1>}>
-            <App />
-        </Suspense>
+          <Suspense fallback={<h1>Chargement de la page</h1>}>
+            <ThemeProvider>
+              <App />
+            </ThemeProvider>
+          </Suspense>
         </React.StrictMode>
       </MessagesProvider>
     </BrowserRouter>

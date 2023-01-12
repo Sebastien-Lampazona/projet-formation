@@ -6,7 +6,52 @@
   src: url('../assets/fonts/Lato-Regular.ttf');
 }
 
-body {
+* {
+  box-sizing: border-box;
+}
+
+body,
+html,
+#root {
+  min-height: 100vh;
   font-family: Lato, sans-serif;
-  background-color: vars.$primary-color;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.btn {
+  background-color: vars.$secondary-color;
+  color: vars.$white-color;
+  text-transform: uppercase;
+  padding: 1em;
+  border: 0;
+  box-shadow: 0 0 18px 2px rgb(0 0 0 / 40%);
+  box-shadow: 0 0 0.5em 0.2em rgb(0 0 0 / 40%);
+  font-weight: bold;
+
+  &-primary {
+    background-color: vars.$primary-color;
+    color: vars.$white-color;
+  }
+
+  &-secondary {
+    background-color: vars.$secondary-color;
+    color: vars.$white-color;
+  }
+}
+
+.theme {
+  transition: all 0.3s ease-in-out;
+
+  &-primary {
+    background-color: vars.$primary-color;
+  }
+
+  &-secondary {
+    background-color: vars.$secondary-color;
+  }
 }

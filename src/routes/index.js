@@ -3,10 +3,14 @@ import ExamplePage from 'src/pages/ExamplePage';
 import Home from 'src/pages/Home';
 
 export default [
-  { path: '/', breadcrumb: 'Home', element: <Home /> },
   {
     element: <Layout />,
     children: [
+      {
+        path: '/',
+        breadcrumb: 'Home',
+        element: <Home />,
+      },
       {
         path: '/example',
         breadcrumb: 'Example Page',
