@@ -1,12 +1,15 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import tasksData from 'src/data/tasks.json';
 import './styles.scss';
 import Tasks from 'src/components/Tasks';
+import ThemeContext from 'src/commons/ThemeProvider';
 
 function Home() {
   const [tasks, setTasks] = useState([]);
+  const themeContext = useContext(ThemeContext);
+
 
   useEffect(() => {
     setTasks(tasksData);
@@ -30,7 +33,7 @@ function Home() {
         <button
           type="button"
           onClick={addNewTask}
-          className="btn btn-secondary add-task"
+          className={`btn btn-${themeContext.theme === 'primary' ? 'secondary' : 'primary'} add-task`}
         >Ajouter une tâche</button>
       </aside>
     </div>
