@@ -1,0 +1,23 @@
+@use 'src/styles/vars';
+
+.btn {
+    transition: all 0.3s ease-in-out;
+    background-color: vars.$secondary-color;
+    color: vars.$white-color;
+    text-transform: uppercase;
+    padding: 1em;
+    border: 0;
+    box-shadow: 0 0 18px 2px rgb(0 0 0 / 40%);
+    box-shadow: 0 0 0.5em 0.2em rgb(0 0 0 / 40%);
+    font-weight: bold;
+  
+    &--primary {
+      background-color: vars.$primary-color;
+      color: vars.$white-color;
+    }
+  
+    &--secondary {
+      background-color: vars.$secondary-color;
+      color: vars.$white-color;
+    }
+  }

@@ -1,0 +1,8 @@
+@use 'src/styles/vars';
+
+.task {
+    padding: 1em;
+    box-shadow: 0 0 0.5em 0.2em rgb(0 0 0 / 10%);
+    margin-bottom: 0.5em;
+    background-color: vars.$white-color;
+}
