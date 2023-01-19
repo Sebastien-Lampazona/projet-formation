@@ -1,10 +1,8 @@
-import App from 'src/components/App';
-import { render, screen } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
+import Home from 'src/pages/Home';
+import { render, screen, waitFor } from '@testing-library/react';
 
-it('render "Chat" in home Page', () => {
-  render(<App />, { wrapper: BrowserRouter });
-  const linkElement = screen.getByText(/Chat/i);
+it('render "Chat" in home Page', async () => {
+  render(<Home />);
 
-  expect(linkElement).toBeInTheDocument();
+  await waitFor(() => expect(screen.getByText(/Chat/i)).toBeInTheDocument());
 });

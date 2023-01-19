@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Header from 'src/pages/Home/Header';
 import MessagesList from 'src/pages/Home/MessagesList';
 import SendMessageForm from 'src/pages/Home/SendMessageForm';
