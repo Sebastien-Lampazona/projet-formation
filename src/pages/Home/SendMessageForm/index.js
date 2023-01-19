@@ -1,14 +1,17 @@
 import React, { useCallback, useState } from 'react';
-import { socket } from 'src/services/socket-io.client';
+import { useDispatch } from 'react-redux';
+import { sendMessageAction } from 'src/actions';
 import './styles.scss';
 
 function SendMessageForm() {
   const [inputTextValue, setInputTextValue] = useState('');
+  const dispatch = useDispatch();
+
   const sendMessage = useCallback(
     (event) => {
       event.preventDefault();
       console.log('Envoie du message', inputTextValue);
-      socket.emit('message', inputTextValue);
+      dispatch(sendMessageAction(inputTextValue));
       setInputTextValue('');
     },
     [inputTextValue],

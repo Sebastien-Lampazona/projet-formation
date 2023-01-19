@@ -5,6 +5,9 @@ import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { createRoot } from 'react-dom/client';
 
+import { Provider as ReduxProvider } from 'react-redux';
+import store from 'src/store';
+
 import App from 'src/components/App';
 import MessagesProvider from 'src/commons/MessagesProvider';
 
@@ -29,7 +32,7 @@ const container = document.querySelector('#root');
 const root = createRoot(container);
 
 const Application = (
-  <RecoilRoot>
+  <ReduxProvider store={store}>
     <BrowserRouter basename="/">
       <MessagesProvider>
         <Suspense fallback={<h1>Chargement de la page</h1>}>
@@ -37,7 +40,7 @@ const Application = (
         </Suspense>
       </MessagesProvider>
     </BrowserRouter>
-  </RecoilRoot>
+  </ReduxProvider>
 );
 
 root.render(Application);
