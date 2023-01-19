@@ -1,0 +1,21 @@
+@use 'src/styles/vars';
+
+.send-message-form {
+  display: flex;
+  flex-direction: row;
+  border-top: 1px solid lightgrey;
+
+  &__input {
+    border: 0;
+    padding: 1em;
+    flex: 1;
+  }
+
+  &__button {
+    border: 0;
+    background-color: vars.$primary-color;
+    color: white;
+    padding: 1em;
+    cursor: pointer;
+  }
+}

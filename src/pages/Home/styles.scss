@@ -1,22 +1,13 @@
 @use 'src/styles/vars';
 
-.home-container {
-  width: 800px;
-  margin: 9em auto;
-
-  .home-title {
-    text-align: center;
-    font-size: 5rem;
-    color: vars.$white-color;
-  }
-
-  h2 {
-    text-align: center;
-    font-size: 3rem;
-    color: vars.$white-color;
-  }
-
-  .home-nav {
-    padding-bottom: 2em;
-  }
+.chat-container {
+  width: 50%;
+  height: 80vh;
+  background-color: vars.$white-color;
+  align-self: center;
+  margin: auto;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 10%);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
 }
