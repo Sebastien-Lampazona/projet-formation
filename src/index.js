@@ -4,9 +4,10 @@ import { BrowserTracing } from '@sentry/tracing';
 import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { createRoot } from 'react-dom/client';
-
+import { Provider as ReduxProvider } from 'react-redux';
 import App from 'src/components/App';
 import MessagesProvider from 'src/commons/MessagesProvider';
+import store from 'src/store';
 
 import packageJSON from '../package.json';
 
@@ -32,9 +33,11 @@ const Application = (
   <RecoilRoot>
     <BrowserRouter basename="/">
       <MessagesProvider>
-        <Suspense fallback={<h1>Chargement de la page</h1>}>
-          <App />
-        </Suspense>
+        <ReduxProvider store={store}>
+          <Suspense fallback={<h1>Chargement de la page</h1>}>
+            <App />
+          </Suspense>
+        </ReduxProvider>
       </MessagesProvider>
     </BrowserRouter>
   </RecoilRoot>
