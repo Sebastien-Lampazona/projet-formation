@@ -1,20 +1,13 @@
-import { createStore, applyMiddleware, compose } from 'redux';
-import reducers from 'src/reducers';
-import middlewares from 'src/middlewares';
+import {  applyMiddleware, compose } from 'redux';
+import { configureStore } from '@reduxjs/toolkit';
+import messages from 'src/features/messages';
 
-const composeEnhancers =
-  typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-        // Specify extension’s options like name, actionsDenylist, actionsCreators, serialize...
-      })
-    : compose;
-
-const enhancer = composeEnhancers(
-  applyMiddleware(...middlewares)
-  // other store enhancers if any
-);
-
-export default createStore(
-    reducers,
-    enhancer
-);
+import { middlewares as socketsMiddlewares} from 'src/features/sockets'
+export default configureStore({
+    reducer: {
+        messages,
+    },
+    middleware: [
+        ...socketsMiddlewares
+    ]
+});

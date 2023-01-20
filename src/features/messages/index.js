@@ -1,4 +1,4 @@
-import { ADD_MESSAGE } from "src/actions/messages";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     list: [
@@ -18,20 +18,20 @@ const initialState = {
     ]
 }
 
-export default (state = initialState, action = {}) => {
-    switch (action.type) {
-        case ADD_MESSAGE:
-            return {
-                ...state,
-                list: [
-                    ...state.list,
-                    {
-                        isMine: true,
-                        text: action.payload
-                    }
-                ]
-            }
-        default:
-            return state;
+
+export const messagesSlice = createSlice({
+    name: 'messages',
+    initialState,
+    reducers: {
+        add: (state, action) => {
+            state.list.push({
+                isMine: true,
+                text: action.payload
+            })
+        }
     }
-}
+});
+
+export const { add } = messagesSlice.actions;
+
+export default messagesSlice.reducer;

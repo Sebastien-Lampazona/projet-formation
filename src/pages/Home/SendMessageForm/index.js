@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import React, { useCallback, useState } from 'react';
 import './styles.scss';
-import { sendMessage } from 'src/actions/messages';
+import { sendMessage } from 'src/features/sockets';
 
 function SendMessageForm() {
   const [inputTextValue, setInputTextValue] = useState('');

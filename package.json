@@ -80,6 +80,7 @@
     "webpack-merge": "^5.8.0"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.1",
     "@sentry/react": "^7.22.0",
     "@sentry/tracing": "^7.22.0",
     "axios": "^1.2.0",

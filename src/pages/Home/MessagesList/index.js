@@ -5,24 +5,11 @@ import Message from 'src/pages/Home/MessagesList/Message';
 import { Virtuoso } from 'react-virtuoso';
 
 import './styles.scss';
-import { useSelector, useDispatch } from 'react-redux';
-import { addMessage } from 'src/actions/messages';
+import { useSelector } from 'react-redux';
 
 function MessagesList() {
   const virtuosoRef = useRef(null);
   const messagesList = useSelector((state) => state.messages.list)
-
-  const dispatch = useDispatch();
-  
-  // useEffect(() => {
-  //   const onMessageReceived = (message) => {
-  //     console.log('Reception d\'un message', message);
-  //     dispatch(addMessage(message));
-  //   };
-  //   socket.on('message', onMessageReceived);
-  //   return () => socket.off('message', onMessageReceived);
-  // }, [socket]);
-
   return (
     <Virtuoso
       ref={virtuosoRef}
