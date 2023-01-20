@@ -1,14 +1,16 @@
-import React, { useEffect, useState, useCallback, useMemo } from 'react';
+import React, { useEffect, useState, useCallback, useMemo, useRef } from 'react';
 import TasksList from 'src/pages/Home/components/TasksList'
 import Button from 'src/components/Button';
 
 import tasksData from 'src/data/tasks.json';
 import './styles.scss';
+import Modal from 'src/components/Modal';
 
 function Home() {
   // On se prépare à stocker la donnée pour pouvoir la faire évoluer par la suite
   const [tasks, setTasks] = useState([]);
   const [color, setColor] = useState('color1');
+  const modalRef = useRef(null);
 
   // On utilise le useEffect pour simuler la récupération de données via un api par exemple
   useEffect(() => {
@@ -19,7 +21,7 @@ function Home() {
   }, []);
 
   const addTask = useCallback(() => {
-    console.log('color', color);
+    modalRef.current.open();
     const newID = tasks.length + 1;
     setTasks([{
       "id": newID,
@@ -36,6 +38,7 @@ function Home() {
 
   const colorTxt = useMemo(() => `Changer la couleur ${color}`, [color])
 
+
   const taskFiltered = useMemo(() => tasks.filter((task) => task.state === "done"), [tasks]);
   return (
     <div className="home-container">
@@ -51,6 +54,8 @@ function Home() {
         </Button>
         <Button onClick={changeColor}>{colorTxt}</Button>
       </main>
+       <Modal ref={modalRef} />
+
     </div>
   );
 }
