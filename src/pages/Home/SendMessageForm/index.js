@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { sendMessageAction } from 'src/actions';
+import { send as sendMessageAction } from 'src/features/messages/messagesSlice';
 import './styles.scss';
 
 function SendMessageForm() {

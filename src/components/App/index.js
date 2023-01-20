@@ -1,15 +1,16 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useRoutes } from 'react-router-dom';
-import { initSocketAction } from 'src/actions';
+import { init as initSocket } from 'src/features/messages/messagesSlice';
 import routes from 'src/routes';
 
 export default function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(initSocketAction());
+    dispatch(initSocket());
   }, []);
+  
   const router = useRoutes(routes);
   return router;
 }

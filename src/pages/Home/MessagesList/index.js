@@ -9,8 +9,7 @@ import { useSelector } from 'react-redux';
 // TODO Stick to Bottom : https://virtuoso.dev/stick-to-bottom/
 function MessagesList() {
   const virtuosoRef = useRef(null);
-  const messagesList = useSelector((state) => state?.messages?.list || []);
-
+  const messagesList = useSelector((state) => state?.message?.list || []);
 
   return (
     <Virtuoso
