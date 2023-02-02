@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import './styles.scss';
-import { useQuery } from 'react-query';
-import { useSearchParams } from "react-router-dom";
+import { useQuery, useQueryClient } from 'react-query';
+import { useSearchParams } from 'react-router-dom';
 import ApiCaller from 'src/commons/ApiCaller';
 import BeerTable from 'src/pages/BeerList/components/BeerTable';
 import BeerDetailDrawer from './components/BeerDetailDrawer/index';
@@ -11,6 +11,7 @@ function BeerList() {
   const [perPage, setPerPage] = useState(10);
   const [searchParams, setSearchParams] = useSearchParams();
   const beerDetailDrawerRef = useRef(null);
+  const queryClient = useQueryClient();
 
   const {
     data,
@@ -33,7 +34,7 @@ function BeerList() {
           page={page}
           perPage={perPage}
           onBeerDetail={(beerID) => {
-            beerDetailDrawerRef.current.openDrawer(beerID);
+            beerDetailDrawerRef.current.openDrawer(beerID, data.find((beer) => beer.id === beerID));
           }}
           onPageChange={setPage}
           onPerPageChange={setPerPage}

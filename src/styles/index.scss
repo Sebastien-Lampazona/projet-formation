@@ -6,7 +6,10 @@
   src: url('../assets/fonts/Lato-Regular.ttf');
 }
 
-body {
+html {
   font-family: Lato, sans-serif;
   background-color: #dedede;
+  background-image: url('src/assets/images/background.jpg');
+  background-size: cover;
+  height: 100vh;
 }

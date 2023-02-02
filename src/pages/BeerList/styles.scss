@@ -4,6 +4,25 @@
   width: 800px;
   margin: 2em auto;
 
+  .ant-table {
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 30%);
+  }
+
+  .ant-pagination,
+  .ant-pagination-item {
+    color: white;
+
+    a {
+      color: white;
+    }
+
+    &.ant-pagination-item-active {
+      a {
+        color: black;
+      }
+    }
+  }
+
   .beerlist-title {
     text-align: center;
     font-size: 5rem;
