@@ -1,10 +1,10 @@
 @use 'src/styles/vars';
 
-.example-page-container {
+.beerlist-container {
   width: 800px;
-  margin: 9em auto;
+  margin: 2em auto;
 
-  .example-page-title {
+  .beerlist-title {
     text-align: center;
     font-size: 5rem;
     color: vars.$white-color;
@@ -16,7 +16,7 @@
     color: vars.$white-color;
   }
 
-  .example-page-nav {
+  .beerlist-nav {
     padding-bottom: 2em;
   }
 }

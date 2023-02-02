@@ -1,16 +1,21 @@
+import { Navigate } from 'react-router-dom';
 import Layout from 'src/components/Layout';
-import ExamplePage from 'src/pages/ExamplePage';
-import Home from 'src/pages/Home';
+import BeerList from 'src/pages/BeerList';
 
 export default [
-  { path: '/', breadcrumb: 'Home', element: <Home /> },
+  { path: '/', breadcrumb: 'Home', element: <Navigate replace to="/beers/list" /> },
   {
     element: <Layout />,
     children: [
       {
-        path: '/example',
-        breadcrumb: 'Example Page',
-        element: <ExamplePage />,
+        path: 'beers',
+        children: [
+          {
+            path: 'list',
+            breadcrumb: 'Liste des bières',
+            element: <BeerList />,
+          },
+        ],
       },
     ],
   },

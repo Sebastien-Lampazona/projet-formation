@@ -8,7 +8,7 @@ import EventEmitter from 'events';
 const { API_BASEURL } = process.env;
 
 export default class ApiCaller {
-  static baseURL = `${API_BASEURL}/api`;
+  static baseURL = `${API_BASEURL}`;
 
   static token = null;
 
@@ -26,7 +26,6 @@ export default class ApiCaller {
     };
     if (data instanceof FormData) {
       headers = {
-        'Content-Length': data.getLengthSync(), // Sinon ça marche pas !
         ...headers,
         ...data.getHeaders(),
       };
@@ -35,7 +34,6 @@ export default class ApiCaller {
       headers,
       method,
       url: ApiCaller.baseURL + endpoint,
-      withCredentials: true,
       timeout,
     };
 
