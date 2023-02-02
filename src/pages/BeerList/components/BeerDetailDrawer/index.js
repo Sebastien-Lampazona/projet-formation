@@ -1,16 +1,20 @@
 import React, { useMemo, useCallback, useState, useImperativeHandle } from 'react';
 import PropTypes from 'prop-types';
-import { Drawer, Image, Typography, Col, Row, Divider, Progress, List, Tag, Space } from 'antd';
+import { Drawer, Image, Typography, Col, Row, Divider, Progress, List, Tag, Space, Tooltip, Button } from 'antd';
 import { useQuery } from 'react-query';
 import ApiCaller from 'src/commons/ApiCaller';
-import { GiHops, GiSolidLeaf, GiWheat } from 'react-icons/gi';
+import { GiBeerStein, GiHops, GiSolidLeaf, GiWheat } from 'react-icons/gi';
 import { IoFastFood } from 'react-icons/io5';
+import { useRecoilState } from 'recoil';
+import favoriteBeerAtom from '@recoil/beer/atom/favorite';
 
 function BeerDetailDrawer(props, ref) {
   const [state, setState] = useState({
     beerID: null,
     initialData: undefined,
   });
+
+  const [favoriteBeer, setFavoriteBeer] = useRecoilState(favoriteBeerAtom);
 
   const resetDrawer = useCallback(() => setState({
     beerID: null,
@@ -29,12 +33,7 @@ function BeerDetailDrawer(props, ref) {
 
   const {
     data,
-    error,
     isSuccess,
-    status,
-    isLoading,
-    isFetching,
-    isPreviousData,
   } = useQuery(['beers', state.beerID], () => {
     if (!state.beerID) return null;
     return ApiCaller.makeRequest('GET', `/beers/${state.beerID}`);
@@ -46,10 +45,36 @@ function BeerDetailDrawer(props, ref) {
   const maxABV = 15;
   const beerData = useMemo(() => data?.[0] || null, [data]);
 
+  const toggleFavorite = useCallback(() => {
+    if (favoriteBeer?.id === beerData?.id) {
+      setFavoriteBeer(null);
+    }
+    else {
+      setFavoriteBeer(beerData);
+    }
+  }, [beerData, favoriteBeer, setFavoriteBeer]);
+
   return (
-    <Drawer width={640} placement="right" onClose={resetDrawer} open={!!state.beerID} title={beerData?.name ? `Détail de la ${beerData?.name}` : null}>
+    <Drawer
+      className="beerDetailDrawer"
+      width={640}
+      placement="right"
+      onClose={resetDrawer}
+      open={!!state.beerID}
+      title={beerData?.name ? `Détail de la ${beerData?.name}` : null}
+    >
       {isSuccess && (
         <>
+          <Tooltip placement="left" title={favoriteBeer ? 'Ne plus définir comme bière favorite' : 'Définir comme bière favorite'}>
+            <Button
+              size="large"
+              onClick={toggleFavorite}
+              type={favoriteBeer?.id === beerData?.id ? 'primary' : 'default'}
+              shape="circle"
+              icon={<GiBeerStein />}
+              className="favoriteBtn"
+            />
+          </Tooltip>
           <Row>
             <Col xs={2} sm={4} md={6} lg={6} xl={6}>
               <Image
@@ -82,15 +107,37 @@ function BeerDetailDrawer(props, ref) {
             dataSource={[
               {
                 title: 'Houblons',
-                description: <Space wrap>{beerData.ingredients.hops.map((hop) => <Tag icon={<GiHops />} color="green"> {hop.name} - {hop.amount.value} {hop.amount.unit}</Tag>)}</Space>,
+                description: (
+                  <Space wrap>
+                    {beerData.ingredients.hops.map((hop) => (
+                      <Tag
+                        icon={<GiHops />}
+                        color={favoriteBeer?.ingredients?.hops.find((searchHop) => searchHop.name === hop.name) ? 'magenta' : 'green'}
+                      >
+                        &nbsp;{hop.name} - {hop.amount.value} {hop.amount.unit}
+                      </Tag>
+                    ))}
+                  </Space>
+                ),
               },
               {
                 title: 'Malts',
-                description: <Space wrap>{beerData.ingredients.malt.map((malt) => <Tag icon={<GiSolidLeaf />} color="lime"> {malt.name} - {malt.amount.value} {malt.amount.unit}</Tag>)}</Space>,
+                description: (
+                  <Space wrap>
+                    {beerData.ingredients.malt.map((malt) => (
+                      <Tag
+                        icon={<GiSolidLeaf />}
+                        color={favoriteBeer?.ingredients?.malt.find((searchMalt) => searchMalt.name === malt.name) ? 'magenta' : 'lime'}
+                      >
+                        &nbsp;{malt.name} - {malt.amount.value} {malt.amount.unit}
+                      </Tag>
+                    ))}
+                  </Space>
+                ),
               },
               {
                 title: 'Levure',
-                description: <Tag icon={<GiWheat />} color="gold"> {beerData.ingredients.yeast}</Tag>,
+                description: <Tag icon={<GiWheat />} color={favoriteBeer?.ingredients?.yeast === beerData.ingredients.yeast ? 'magenta' : 'gold'}> {beerData.ingredients.yeast}</Tag>,
               },
               {
                 title: 'S\'accorde avec',
@@ -121,4 +168,6 @@ BeerDetailDrawer.propTypes = {
   beerID: PropTypes.string.isRequired,
 };
 
-export default React.forwardRef(BeerDetailDrawer);
+const ForwardedBeerDetailDrawer = React.forwardRef(BeerDetailDrawer);
+
+export default React.memo(ForwardedBeerDetailDrawer);
