@@ -28,7 +28,7 @@ function BeerList() {
     <div className="beerlist-container">
       <main>
         <h2>BeerList</h2>
-        <BeerTable
+        <BeerTable 
           data={data}
           loading={isLoading}
           page={page}
