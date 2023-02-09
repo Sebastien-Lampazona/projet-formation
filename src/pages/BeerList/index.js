@@ -5,7 +5,7 @@ import { useSearchParams } from 'react-router-dom';
 import ApiCaller from 'src/commons/ApiCaller';
 import BeerTable from 'src/pages/BeerList/components/BeerTable';
 import { useError } from 'src/commons/MessagesProvider';
-import BeerDetailDrawer from './components/BeerDetailDrawer/index';
+import BeerDetailDrawer from 'src/pages/BeerList/BeerDetailDrawer';
 
 function BeerList() {
   const [searchParams, setSearchParams] = useSearchParams({ page: 1, per_page: 10 });
