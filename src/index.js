@@ -4,8 +4,8 @@ import { BrowserTracing } from '@sentry/tracing';
 import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { createRoot } from 'react-dom/client';
-import { ReactQueryDevtools } from 'react-query/devtools'
-import { QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { QueryClientProvider } from '@tanstack/react-query';
 
 import App from 'src/components/App';
 import MessagesProvider from 'src/commons/MessagesProvider';

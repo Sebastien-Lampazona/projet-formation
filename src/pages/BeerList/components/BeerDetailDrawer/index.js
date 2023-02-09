@@ -1,14 +1,13 @@
 import React, { useMemo, useCallback, useState, useImperativeHandle } from 'react';
-import PropTypes from 'prop-types';
 import { Drawer, Image, Typography, Col, Row, Divider, Progress, List, Tag, Space, Tooltip, Button } from 'antd';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import ApiCaller from 'src/commons/ApiCaller';
 import { GiBeerStein, GiHops, GiSolidLeaf, GiWheat } from 'react-icons/gi';
 import { IoFastFood } from 'react-icons/io5';
 import { useRecoilState } from 'recoil';
 import favoriteBeerAtom from '@recoil/beer/atom/favorite';
 
-function BeerDetailDrawer(props, ref) {
+function BeerDetailDrawer(_props, ref) {
   const [state, setState] = useState({
     beerID: null,
     initialData: undefined,
@@ -109,8 +108,9 @@ function BeerDetailDrawer(props, ref) {
                 title: 'Houblons',
                 description: (
                   <Space wrap>
-                    {beerData.ingredients.hops.map((hop) => (
+                    {beerData.ingredients.hops.map((hop, index) => (
                       <Tag
+                        key={hop.name + index}
                         icon={<GiHops />}
                         color={favoriteBeer?.ingredients?.hops.find((searchHop) => searchHop.name === hop.name) ? 'magenta' : 'green'}
                       >
@@ -126,6 +126,7 @@ function BeerDetailDrawer(props, ref) {
                   <Space wrap>
                     {beerData.ingredients.malt.map((malt) => (
                       <Tag
+                        key={malt.name}
                         icon={<GiSolidLeaf />}
                         color={favoriteBeer?.ingredients?.malt.find((searchMalt) => searchMalt.name === malt.name) ? 'magenta' : 'lime'}
                       >
@@ -141,7 +142,12 @@ function BeerDetailDrawer(props, ref) {
               },
               {
                 title: 'S\'accorde avec',
-                description: <Space wrap>{beerData.food_pairing.map((food) => <Tag icon={<IoFastFood />} color="brown"> {food}</Tag>)}</Space>,
+                description: (
+                  <Space wrap>{beerData.food_pairing.map((food) => (
+                    <Tag key={food} icon={<IoFastFood />} color="brown"> {food}</Tag>
+                  ))}
+                  </Space>
+                ),
               },
               {
                 title: 'Petit conseil',
@@ -164,10 +170,8 @@ function BeerDetailDrawer(props, ref) {
   );
 }
 
-BeerDetailDrawer.propTypes = {
-  beerID: PropTypes.string.isRequired,
-};
-
 const ForwardedBeerDetailDrawer = React.forwardRef(BeerDetailDrawer);
+
+ForwardedBeerDetailDrawer.propTypes = {};
 
 export default React.memo(ForwardedBeerDetailDrawer);
