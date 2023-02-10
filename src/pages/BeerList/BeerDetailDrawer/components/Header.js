@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Image, Typography, Col, Row, Progress, Skeleton } from 'antd';
+import useSetState from 'src/hooks/useSetState';
 
 function BeerDetailDrawerHeader({ beerData, maxABV, loading }) {
   const colCoef = beerData.image_url ? 2 : 0;
+
   return (
     <Skeleton loading={loading} active>
       <Row>

@@ -1,10 +1,11 @@
 /* eslint-disable react/no-unstable-nested-components */
-import React, { useRef } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Table, Button } from 'antd';
 import * as columns from 'src/pages/BeerList/columns';
 import './styles.scss';
 
+const MemoizedTable = React.memo(Table);
 function BeerTable({
   data,
   perPage,
@@ -17,8 +18,12 @@ function BeerTable({
   searchParams,
   onBeerDetail,
 }) {
+
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+
   const columnsList = [
-    columns.name(searchParams),
+    columns.checkbox(selectedRowKeys, setSelectedRowKeys),
+    columns.name(searchParams, selectedRowKeys),
     {
       title: 'Tagline',
       dataIndex: 'tagline',
@@ -40,36 +45,42 @@ function BeerTable({
     columns.detailButton(onBeerDetail),
   ];
 
-  const fetchingIcon = (
+  const fetchingIcon = useMemo(() => (
     <span className="fetching-icon">
       {fetching ? '🍺 ' : null}
     </span>
-  );
+  ), [fetching]);
+
+  const pageSizeOption = useMemo(() => ['10', '20', '50', '100'], []);
+
+  const pagination = useMemo(() => ({
+    current: page,
+    pageSize: perPage,
+    showSizeChanger: true,
+    pageSizeOptions: pageSizeOption,
+    onChange: (newPage, pageSize) => {
+      onPageChange?.(newPage);
+      onPerPageChange?.(pageSize);
+    },
+    total: 325,
+    showTotal: (total, range) => <>{range[0]}-{range[1]} {fetchingIcon}</>,
+  }), [page, perPage, onPageChange, onPerPageChange, fetchingIcon]);
+
+  const onTableChange = useCallback((pagination, filters) => onChange(pagination, Object.keys(filters).reduce((acc, current) => {
+    if (filters[current]) {
+      return { ...acc, [current]: filters[current] };
+    }
+    return acc;
+  }, {})), [onChange]);
 
   return (
-    <Table
+    <MemoizedTable
       dataSource={data}
       columns={columnsList}
       loading={loading}
       rowKey="id"
-      pagination={{
-        current: page,
-        pageSize: perPage,
-        showSizeChanger: true,
-        pageSizeOptions: ['10', '20', '50', '80'],
-        onChange: (newPage, pageSize) => {
-          onPageChange?.(newPage);
-          onPerPageChange?.(pageSize);
-        },
-        total: 325,
-        showTotal: (total, range) => <>{range[0]}-{range[1]} {fetchingIcon}</>,
-      }}
-      onChange={(pagination, filters) => onChange(pagination, Object.keys(filters).reduce((acc, current) => {
-        if (filters[current]) {
-          return { ...acc, [current]: filters[current] };
-        }
-        return acc;
-      }, {}))}
+      pagination={pagination}
+      onChange={onTableChange}
     />
   );
 }

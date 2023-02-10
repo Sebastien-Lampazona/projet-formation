@@ -7,8 +7,9 @@ import { useRecoilValue } from 'recoil';
 import favoriteBeerAtom from '@recoil/beer/atom/favorite';
 import { GiBeerStein } from 'react-icons/gi';
 import { Tag } from 'antd';
+import BeerName from '../components/BeerName';
 
-export default (searchParams) => {
+export default (searchParams, selectedRowKeys) => {
   const searchInput = useRef(null);
   const favoriteBeer = useRecoilValue(favoriteBeerAtom);
 
@@ -27,7 +28,7 @@ export default (searchParams) => {
         setTimeout(() => searchInput.current?.select(), 100);
       }
     },
-    render: (text, beer) => <>{favoriteBeer?.id === beer?.id && <Tag icon={<GiBeerStein />} color="gold" />} {text}</>,
+    render: (text, beer) => <BeerName isFavorite={favoriteBeer?.id === beer?.id} isChecked={selectedRowKeys.includes(beer.id)} text={text}/>,
     filterIcon: (filtered) => (
       <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />
     ),
