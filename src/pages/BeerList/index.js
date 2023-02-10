@@ -22,7 +22,6 @@ function BeerList() {
     keepPreviousData: true,
     staleTime: 1000 * 60, // 1 minute
   });
-
   const setPage = useCallback((page) => {
     searchParams.set('page', page);
     setSearchParams(searchParams);

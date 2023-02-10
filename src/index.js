@@ -36,12 +36,8 @@ const Application = (
     <RecoilRoot>
       <BrowserRouter basename="/">
         <MessagesProvider>
-          <React.StrictMode>
-            <Suspense fallback={<h1>Chargement de la page</h1>}>
-              <App />
-              <ReactQueryDevtools initialIsOpen={false} />
-            </Suspense>
-          </React.StrictMode>
+          <App />
+          <ReactQueryDevtools initialIsOpen={false} />
         </MessagesProvider>
       </BrowserRouter>
     </RecoilRoot>

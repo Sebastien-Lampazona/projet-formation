@@ -33,8 +33,10 @@ function BeerDetailDrawer(_props, ref) {
 
   const {
     data,
+    status,
     isLoading,
     isSuccess,
+    error,
   } = useQuery(['beers', state.beerID], () => {
     if (!state.beerID) return null;
     return ApiCaller.makeRequest('GET', `/beers/${state.beerID}`);

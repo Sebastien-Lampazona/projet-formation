@@ -7,6 +7,7 @@ function ToggleFavoriteBeer({ isFavorite, onClick }) {
   return (
     <Tooltip placement="left" title={isFavorite ? 'Ne plus définir comme bière favorite' : 'Définir comme bière favorite'}>
       <Button
+        role={isFavorite ? 'favorite' : 'notFavorite'}
         size="large"
         onClick={onClick}
         type={isFavorite ? 'primary' : 'default'}

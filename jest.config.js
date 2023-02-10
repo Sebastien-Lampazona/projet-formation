@@ -8,6 +8,8 @@ module.exports = {
       '<rootDir>/__mocks__/fileMock.js',
     '\\.(css|less|scss|sass)$': '<rootDir>/__mocks__/styleMock.js',
     'src(.*)$': '<rootDir>/src/$1',
+    '__mocks__(.*)$': '<rootDir>/__mocks__/$1',
+    '__tests__(.*)$': '<rootDir>/__tests__/$1',
     '@recoil(.*)$': '<rootDir>/src/recoil$1',
   },
   setupFilesAfterEnv: ['<rootDir>/__tests__/.setup.js'],

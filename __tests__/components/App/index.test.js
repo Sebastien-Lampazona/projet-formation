@@ -1,10 +1,12 @@
 import App from 'src/components/App';
-import { render, screen } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
+import { screen } from '@testing-library/react';
+import { renderWithMainWrapper } from '__tests__/utils';
 
-it.skip('render "BeerList" in home Page', () => {
-  render(<App />, { wrapper: BrowserRouter });
-  const linkElement = screen.getByText(/BeerList/i);
+describe('App Component', () => {
+  it('affiche "BeerList" sur la page d\'accueil', () => {
+    renderWithMainWrapper(<App />);
+    const linkElement = screen.getByText(/BeerList/i);
 
-  expect(linkElement).toBeInTheDocument();
+    expect(linkElement).toBeInTheDocument();
+  });
 });
