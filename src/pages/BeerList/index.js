@@ -42,6 +42,7 @@ function BeerList() {
     <div className="beerlist-container">
       <main>
         <h2>BeerList</h2>
+        <h3>C'est de la super bière</h3>
         <BeerTable
           data={data}
           loading={isLoading}

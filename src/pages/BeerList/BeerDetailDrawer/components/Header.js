@@ -10,7 +10,7 @@ function BeerDetailDrawerHeader({ beerData, maxABV, loading }) {
         {!!beerData.image_url && (
           <Col xs={colCoef} sm={2 * colCoef} md={3 * colCoef} lg={4 * colCoef} xl={4 * colCoef}>
             <Image
-              data-testid="beerDetailDrawerHeader-image"
+              alt="beer-photo"
               preview={{
                 src: beerData.image_url,
               }}
