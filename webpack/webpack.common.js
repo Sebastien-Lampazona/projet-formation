@@ -24,6 +24,8 @@ module.exports = {
       src: paths.src,
       styles: path.resolve(paths.src, 'styles'),
       '@recoil': path.resolve(paths.src, 'recoil'),
+      __mocks__: path.resolve(paths.root, '__mocks__'),
+      __tests__: path.resolve(paths.root, '__tests__'),
     },
     extensions: ['.tsx', '.ts', '.js', '.jsx'],
   },

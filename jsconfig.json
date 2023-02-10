@@ -1,27 +1,33 @@
 {
-  "compilerOptions": {
-    "target": "es2017",
-    "allowSyntheticDefaultImports": false,
-    "baseUrl": "./",
-    "paths": {
-      "src/*": [
-        "src/*"
-      ],
-      "tests/*": [
-        "__tests__/*"
-      ],
-    }
-  },
-  "jest": {
-    "moduleNameMapper": {
-      "^src(.*)$": "<rootDir>/src$1",
-    }
-  },
-  "include": [
-    "src/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist",
-  ]
-}
+    "compilerOptions": {
+      "baseUrl": ".",
+      "paths": {
+        "src/*": [
+          "./src/*"
+        ],
+        "@recoil/*": [
+          "./src/recoil/*"
+        ],
+        "__mocks__/*": [
+          "./__mocks__/*"
+        ],
+        "@assets/*": [
+          "./src/assets/*"
+        ],
+      }
+    },
+    "jest": {
+      "moduleNameMapper": {
+        "^src(.*)$": "<rootDir>/src$1",
+        "^@recoil(.*)$": "<rootDir>/src/recoil$1",
+        "^__test__(.*)$": "<rootDir>/__tests__$1",
+        "^__mocks__(.*)$": "<rootDir>/__mocks__$1"
+      }
+    },
+    "include": ["src/**/*", "__mocks__/**/*", "__tests__/**/*"],
+    "exclude": [
+      "node_modules",
+      "dist",
+    ]
+  }
+  
